@@ -9,9 +9,9 @@
         "fideloper/proxy": "~4.0",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
+        "laravelcollective/html": "^5.4.0",
         "tymon/jwt-auth": "1.0.0-rc.1",
-        "zizaco/entrust": "dev-master",
-        "laravelcollective/html":"^5.4.0"
+        "zizaco/entrust": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
