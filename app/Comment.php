@@ -12,11 +12,17 @@ class Comment extends Model
     
     public function user()
     {
-	return $this->belongsTo('App\User');
+	return $this->belongsTo('App\User','created_by');
     }
-    
+//  this is the author
     public function post()
     {
 	return $this->belongsTo('App\post');
+    }
+    
+//  this is the editor
+    public function editor()
+    {
+	return $this->belongsTo('App\post','updated_by');
     }
 }

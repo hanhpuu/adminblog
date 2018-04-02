@@ -1,4 +1,4 @@
-@extends('template')
+@extends('admin_templatenew')
 
 @section('content')
 <div class="panel panel-default">	

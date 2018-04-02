@@ -29,3 +29,5 @@ Route::get('admin', function () {
 });
 
 Route::resource('posts','PostsController');
+Route::resource('comments','CommentsController', ['except'=>['index', 'create', 'show']]);
+

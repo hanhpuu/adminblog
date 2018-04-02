@@ -5,6 +5,10 @@
     @if(isset($success))
     <h1>{{ $success}}</h1>
     @endif
+    
+    <div class="panel panel-default">	
+	<div class="panel-body">
+
     <h1> {{ $post->title }} </h1>
     <p class='lead'>
 	{{ $post->body }}
@@ -26,8 +30,7 @@
     @if($post->comments->count() >0)
     
     @foreach($post->comments as $comment)
-    <div class="panel panel-default">	
-	<div class="panel-body">
+    
 	    
 	    @if(isset($successans))
 	    <h6>{{ $successans}}</h6>
@@ -40,7 +43,7 @@
 	      <h6> Last edited on {{ $comment->updated_at->diffForHumans() }}</h6>
 	      @endif
 	      @if(!Auth::guest())
-		@if(Auth::user()->id == $comment->user_id)
+		@if(Auth::user()->id == $comment->created_by)
 		<a href="/comments/{{$comment->id}}/edit" class="btn btn-default"> Edit </a> 
 		@endif
 	    @endif
@@ -56,15 +59,16 @@
     @endif
     
     <!-- display the form to submit a new comment -->
-{{--     <form action="{{ route('comments.store') }}" method="POST">
+{{-- <form action="{{ route('comments.store') }}" method="POST"> --}}
+	<form action="{{ route('comments.store') }}" method="POST">
 	{{ csrf_field() }}
 	
 	<h4> Submit your own comment </h4>
-	<textarea class="form-control" name="content" rows="4"></textarea>
+	<textarea class="form-control" name="body" rows="2"></textarea>
 	<input type="hidden" value="{{ $post->id }}" name="post_id">
 	<button class="btn btn-primary">Submit comment</button>
 	    
-    </form> --}}
+    </form> 
 </div>
 
 @endsection
