@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['prefix' => 'admin', 'middleware' => ['role:admin|moderator']], function() {
+Route::group(['prefix' => 'admin', 'middleware' => 'access'], function() {
     Route::resource('roles','RoleController');
     Route::resource('users','UserController');
 });
@@ -29,4 +29,3 @@ Route::get('admin', function () {
 });
 
 Route::resource('posts','PostsController');
-

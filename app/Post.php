@@ -14,9 +14,16 @@ class Post extends Model
     {
 	return $this->hasMany('App\Comment');
     }
-    
+//  this is the author's 
     public function user()
     {
-	return $this->belongsTo('App\User');
-    } 
+	return $this->belongsTo('App\User', 'created_by');
+    }
+    
+//  This is the editor
+    public function editor()
+    {
+	return $this->belongsTo('App\User', 'updated_by');
+    }
 }
+

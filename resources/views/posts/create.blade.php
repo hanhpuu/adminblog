@@ -11,7 +11,6 @@
 
         <label for="body">Body content:</label>
         <textarea class="form-control" name="body" id="body" rows="4"></textarea>
-	<input name="user_id" type="hidden" value="{{ $user->id}}">
         <input type="submit" class="btn btn-primary" value="Submit post" />
       </form>
     </div>

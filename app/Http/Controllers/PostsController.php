@@ -44,16 +44,19 @@ class PostsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {	
         //validate the form data
 	$this->validate($request, [
 	    'title' => 'required|max:255',
+	    'body' => 'required',
+	    'cover_image'=> 'image|nullable|max:1999'
 	]);
+	
 	//process the data and submit it
 	$post = new Post();
 	$post->title = $request->title;
 	$post->body = $request->body; 
-	$post->user()->associate(Auth::id());
+	$post->created_by= auth()->user()->id;
 	//if succesful, we want to redirect	
 	if($post->save()){
 	    return redirect()->route('posts.show', $post->id);
@@ -108,7 +111,8 @@ class PostsController extends Controller
     //process the data and update the post
 	$post = Post::find($id);
 	$post->title = $request->title;
-	$post->body = $request->body;    
+	$post->body = $request->body;  
+	$post->updated_by = auth()->user()->id;
 	$post->save();
 	return view('posts.show', ['post' => $post, 'success' => 'Post updated']);
 	
