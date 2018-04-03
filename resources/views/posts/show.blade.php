@@ -11,13 +11,13 @@
 
     <h1> {{ $post->title }} </h1>
     <p class='lead'>
-	{{ $post->body }}
+	{!! $post->body !!}
     </p>
     <p>
-	Submitted by: <big> {{ $post->user->name }} </big> on {{ $post->created_at->diffForHumans() }}
+	Submitted by <strong> {{ $post->user->name }} </strong> {{ $post->created_at->diffForHumans() }}
 	<br/>
 	@if ($post->created_at != $post->updated_at)
-	<p>Last edited by on {{ $post->editor->name}} on {{ $post->updated_at->diffForHumans() }}</p>
+	<p>Last edited by on {{ $post->editor->name}} {{ $post->updated_at->diffForHumans() }}</p>
 	@endif
     </p>
     @if(!Auth::guest())
@@ -71,7 +71,7 @@
 	<form action="{{ route('comments.store') }}" method="POST">
 	{{ csrf_field() }}
 	
-	<h4> Edit your own comment </h4>
+	<h4> Write your own comment </h4>
 	<textarea class="form-control" name="body" rows="2"></textarea>
 	<input type="hidden" value="{{ $post->id }}" name="post_id">
 	<button class="btn btn-primary">Submit comment</button>

@@ -9,7 +9,7 @@
         <input type="text" name="title" id="title" class="form-control" value="{{ $post->title }}"/>
 
         <label for="body">Post body:</label>
-        <input class="form-control" name="body" id="body" rows="4" value="{{ $post->body }}" ></input>
+        <textarea class="form-control" name="body" id="body" rows="4" value="{{ $post->body }}" ></textarea>
         <input type="submit" class="btn btn-primary" value="Submit post" />
 	{{ method_field('PUT') }}
 	{{ csrf_field() }}
