@@ -31,3 +31,8 @@ Route::get('admin', function () {
 Route::resource('posts','PostsController');
 Route::resource('comments','CommentsController', ['except'=>['index', 'create', 'show']]);
 
+Route::get('/errors', function() {
+    return view ('errors.403');
+    
+}) ->name('errors') ;
+

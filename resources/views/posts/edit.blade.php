@@ -5,11 +5,11 @@
       <h1>Edit your post:</h1>
       <hr />
       <form action="{{route('posts.update', ['post' => $post->id])}}" method="POST">
-        <label for="title">Post:</label>
+        <label for="title">Post title:</label>
         <input type="text" name="title" id="title" class="form-control" value="{{ $post->title }}"/>
 
-        <label for="body">More Information:</label>
-        <textarea class="form-control" name="body" id="body" rows="4" value="{{ $post->body }}" ></textarea>
+        <label for="body">Post body:</label>
+        <input class="form-control" name="body" id="body" rows="4" value="{{ $post->body }}" ></input>
         <input type="submit" class="btn btn-primary" value="Submit post" />
 	{{ method_field('PUT') }}
 	{{ csrf_field() }}

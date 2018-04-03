@@ -18,7 +18,7 @@ class AdminMiddleware {
     {
 	if (!$request->user()->hasRole('admin')) {
 	    // Redirect...
-	    return view ('403');
+	    return redirect()->route ('errors');
 	}
     }
 

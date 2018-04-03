@@ -23,6 +23,10 @@
     @if(!Auth::guest())
 	@if(Auth::user()->id == $post->created_by)
 	<a href="/posts/{{$post->id}}/edit" class="btn btn-default"> Edit </a> 
+	{!!Form::open(['action'=>['PostsController@destroy', $post->id],'method'=>'POST', 'class' => 'pull-right' ]) !!}
+	{{Form::hidden('_method','DELETE')}}
+	{{Form::submit('Delete',['class'=>'btn btn-danger'])}}
+	{!!Form::close()!!}
 	@endif
     @endif
     <hr/>
@@ -45,6 +49,10 @@
 	      @if(!Auth::guest())
 		@if(Auth::user()->id == $comment->created_by)
 		<a href="/comments/{{$comment->id}}/edit" class="btn btn-default"> Edit </a> 
+		{!!Form::open(['action'=>['CommentsController@destroy', $comment->id],'method'=>'POST', 'class' => 'pull-right' ]) !!}
+		{{Form::hidden('_method','DELETE')}}
+		{{Form::submit('Delete',['class'=>'btn btn-danger'])}}
+		{!!Form::close()!!}
 		@endif
 	    @endif
     
@@ -63,7 +71,7 @@
 	<form action="{{ route('comments.store') }}" method="POST">
 	{{ csrf_field() }}
 	
-	<h4> Submit your own comment </h4>
+	<h4> Edit your own comment </h4>
 	<textarea class="form-control" name="body" rows="2"></textarea>
 	<input type="hidden" value="{{ $post->id }}" name="post_id">
 	<button class="btn btn-primary">Submit comment</button>
