@@ -36,3 +36,6 @@ Route::get('/errors', function() {
     
 }) ->name('errors') ;
 
+Route::match(['get', 'post'], '/search', 'PostsController@search')->name('post.search');
+
+

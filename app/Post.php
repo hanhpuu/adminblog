@@ -25,5 +25,10 @@ class Post extends Model
     {
 	return $this->belongsTo('App\User', 'updated_by');
     }
+//  for search  
+    public static function search($s) {
+	return self::where('title','like',"%$s%")
+		->orWhere('body','lile',"%$s%")->get();
+    }
 }
 

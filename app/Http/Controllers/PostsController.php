@@ -130,4 +130,11 @@ class PostsController extends Controller
 	$post->delete();
 	return redirect('/posts')->with('success', 'Post removed');
     }
+    
+    public function search(Request $request) 
+    {
+        $searchTerm = $request->input('s');
+        $posts = Post::search($searchTerm);
+        return view('posts.searchResult', compact('posts', 'searchTerm'));
+    }
 }
