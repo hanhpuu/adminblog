@@ -30,5 +30,10 @@ class Post extends Model
 	return self::where('title','like',"%$s%")
 		->orWhere('body','lile',"%$s%")->get();
     }
+    
+    public function tags()
+    {
+	return $this->belongsToMany('App\Tag');
+    }
 }
 

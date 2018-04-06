@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use Auth;
+use App\Tag;
+use Illuminate\Support\Facades\Session;
 
 class PostsController extends Controller
 {
@@ -34,7 +36,8 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        $tags = Tag::all();
+	return view('posts.create')->withTags($tags);
     }
 
     /**
@@ -45,7 +48,7 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {	
-        //validate the form data
+	//validate the form data
 	$this->validate($request, [
 	    'title' => 'required|max:255',
 	    'body' => 'required',
@@ -58,11 +61,11 @@ class PostsController extends Controller
 	$post->body = $request->body; 
 	$post->created_by= auth()->user()->id;
 	//if succesful, we want to redirect	
-	if($post->save()){
-	    return redirect()->route('posts.show', $post->id);
-	} else {
-	    return redirect()->route('posts.create');
-	}
+	$post->save();
+	$post->tags()->sync($request->tags, FALSE);
+	Session::flash('success','The blog post was successfully saved');
+	return redirect()->route('posts.show', $post->id);
+	
     }
 
     /**
@@ -89,10 +92,16 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($id);
 	
+	$tags = Tag::all();
+	$tags2 = array();
+	foreach ($tags as $tag) {
+	    $tags2[$tag->id] = $tag->name;
+	}
+	
 	if($post->user->id != Auth::id()) {
 	    return abort(403);
 	}
-	    return view('posts.edit', ['post' => $post]);
+	    return view('posts.edit', ['post' => $post, 'tags2'=>$tags]);
     }
 
     /**

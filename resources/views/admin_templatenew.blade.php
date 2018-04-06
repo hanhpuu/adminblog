@@ -36,6 +36,8 @@
 	<![endif]-->
 	<!-- Google Font -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+	<!-- To create Tag UX/UI -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
@@ -51,7 +53,7 @@
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
 		    <h1>
-			{{ $page_title or "When I let go of what I am, I become what I might be." }}
+			@yield('title')
 			<small>{{ $page_description or null }}</small>
 		    </h1>
 		    <!-- You can dynamically generate breadcrumbs here -->
@@ -79,7 +81,7 @@
 	<script src="{{asset('AdminLTE-2.4.3/bower_components/jquery-ui/jquery-ui.min.js')}}"></script>
 	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 	<script>
-      $.widget.bridge('uibutton', $.ui.button);
+$.widget.bridge('uibutton', $.ui.button);
 	</script>
 	<!-- Bootstrap 3.3.7 -->
 	<script src="{{asset('AdminLTE-2.4.3/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
@@ -110,10 +112,12 @@
 	<script src="{{asset('AdminLTE-2.4.3/dist/js/pages/dashboard.js')}}"></script>
 	<!-- AdminLTE for demo purposes -->
 	<script src="{{asset('AdminLTE-2.4.3/dist/js/demo.js')}}"></script>
+	<!-- To create Tag UX/UI -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 	<!-- Ckeditor -->
 	<script src="https://cdn.ckeditor.com/4.9.1/standard/ckeditor.js"></script>
 	<script>
-	CKEDITOR.replace('body');
+CKEDITOR.replace('body');
 	</script>
     </body>
 </html>

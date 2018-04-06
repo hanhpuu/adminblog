@@ -2,8 +2,8 @@
 
 @section('content')
 <div class='container'>
-    @if(isset($success))
-    <h1>{{ $success}}</h1>
+    @if (Session::has('success'))
+	<div class="alert alert-info">{{ Session::get('success') }}</div>
     @endif
     
     <div class="panel panel-default">	
@@ -13,6 +13,12 @@
     <p class='lead'>
 	{!! $post->body !!}
     </p>
+    <hr>
+    <div class='tags'>
+    	@foreach ($post->tags as $tag)
+    		<span class="label label-default"> {{ $tag->name }}</span>
+    	@endforeach
+    </div>	
     <p>
 	Submitted by <strong> {{ $post->user->name }} </strong> {{ $post->created_at->diffForHumans() }}
 	<br/>
@@ -40,7 +46,7 @@
 	    <h6>{{ $successans}}</h6>
 	    @endif
 	      <p>
-	    {{ $comment->body }}
+	    {!! $comment->body !!}
 	      </p>
 	      <h6> Answered by {{ $comment->user->name }} on {{ $comment->created_at->diffForHumans() }}</h6>
 	      @if ($comment->created_at != $comment->updated_at)

@@ -9,7 +9,7 @@
     <div class='well'>
 	<h3>{{ $post->title }}</h3> 
 	<p>
-	    {{ $post->body }}
+	    {!! $post->body !!}
 	</p>
 	<a href="{{ route('posts.show', $post->id) }}" class='btn btn-sm btn-primary'>View details</a>
     </div>

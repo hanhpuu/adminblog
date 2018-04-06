@@ -11,10 +11,10 @@
 
     <h1> {{ $post->title }} </h1>
     <p class='lead'>
-	{{ $post->body }}
+	{!! $post->body !!}
     </p>
     <p>
-	Submitted by: <big> {{ $post->user->name }} </big> on {{ $post->created_at->diffForHumans() }}
+	Submitted by: <strong> {{ $post->user->name }} </strong> on {{ $post->created_at->diffForHumans() }}
 	<br/>
 	@if ($post->created_at != $post->updated_at)
 	<p>Last edited by on {{ $post->editor->name}} on {{ $post->updated_at->diffForHumans() }}</p>
@@ -36,7 +36,7 @@
 	    <h6>{{ $successans}}</h6>
 	    @endif
 	      <p>
-	    {{ $comment->body }}
+	    {!! $comment->body !!}
 	      </p>
 	      <h6> Answered by {{ $comment->user->name }} on {{ $comment->created_at->diffForHumans() }}</h6>
 	      @if ($comment->created_at != $comment->updated_at)
