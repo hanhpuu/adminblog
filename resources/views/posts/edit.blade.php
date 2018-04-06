@@ -13,8 +13,8 @@
 	<!--for tags UX UI-->
 	<label for="tags">Tags: </label>
         <select class="form-control select2-multi" name='tags[]' multiple="multiple">
-		@foreach($tags as $tag)
-		<option value='{{ $tag->id}}'> {{$tag->name}} </option>
+		@foreach($tags2 as $id => $name)
+		<option value='{{ $id}}'> {{$name}} </option>
 		@endforeach
 	</select>
 	
@@ -32,6 +32,8 @@
     <script type="text/javascript">
     $(document).ready(function() {
     $('.select2-multi').select2();
+    $('.select2-multi').select2().val({!! json_encode($post->tags()->allRelatedIds()) 
+	!!}).trigger('change');
     });
     </script>
 @endsection 

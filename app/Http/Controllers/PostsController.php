@@ -101,7 +101,7 @@ class PostsController extends Controller
 	if($post->user->id != Auth::id()) {
 	    return abort(403);
 	}
-	    return view('posts.edit', ['post' => $post, 'tags2'=>$tags]);
+	    return view('posts.edit', ['post' => $post, 'tags2'=>$tags2]);
     }
 
     /**
@@ -122,7 +122,14 @@ class PostsController extends Controller
 	$post->title = $request->title;
 	$post->body = $request->body;  
 	$post->updated_by = auth()->user()->id;
+	Session::flash('success','The blog post was successfully updated');
 	$post->save();
+	if(isset($request->tags)) {
+	    $post->tags()->sync($request->tags);
+	} else {
+	    $post->tags->sync(array());
+	}
+	
 	return view('posts.show', ['post' => $post, 'success' => 'Post updated']);
 	
     }
@@ -136,8 +143,10 @@ class PostsController extends Controller
     public function destroy($id)
     {
         $post = Post::find($id);
+	$post->tags()->detach();
 	$post->delete();
-	return redirect('/posts')->with('success', 'Post removed');
+	Session::flash('success','Post removed');
+	return redirect()->route('posts.index');
     }
     
     public function search(Request $request) 

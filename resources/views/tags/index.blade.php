@@ -3,6 +3,11 @@
 @section('title','|All tags')
 
 @section('content')
+
+@if (Session::has('success'))
+	<div class="alert alert-info">{{ Session::get('success') }}</div>
+@endif
+    
 <div class='row'>
     <div class='col-md-8'>
 	<h1>Tags</h1>
@@ -17,7 +22,7 @@
 		@foreach ($tags as $tag)
 		<tr>
 		    <th>{{ $tag->id }}</th>
-		    <th>{{ $tag->name }}</th>		
+		    <td> <a href='{{ route('tags.show', $tag->id) }}'> {{ $tag->name }} </a></td>		
 		</tr>
 		@endforeach
 	    </tbody>
