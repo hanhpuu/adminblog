@@ -94,7 +94,7 @@
 		    </span>
 		</a>
 		<ul class="treeview-menu">
-		    <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> Create categories</a></li>
+		    <li><a href="{{ route('categories.index')}}"><i class="fa fa-circle-o"></i> Categories</a></li>
 		    <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
 		</ul>
 	    </li>

@@ -31,6 +31,7 @@ Route::get('admin', function () {
 Route::resource('posts','PostsController');
 Route::resource('comments','CommentsController', ['except'=>['index', 'create', 'show']]);
 Route::resource('tags','TagController',['except'=>['create']]);
+Route::resource('categories','CategoryController',['except'=>['create']]);
 
 Route::get('/errors', function() {
     return view ('errors.403');

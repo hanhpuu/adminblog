@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use Auth;
 use App\Tag;
+use App\Category;
 use Illuminate\Support\Facades\Session;
 
 class PostsController extends Controller
@@ -37,7 +38,8 @@ class PostsController extends Controller
     public function create()
     {
         $tags = Tag::all();
-	return view('posts.create')->withTags($tags);
+	$categories = Category::all();
+	return view('posts.create')->withTags($tags)->withCategories($categories);
     }
 
     /**

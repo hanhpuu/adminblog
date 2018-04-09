@@ -20,14 +20,21 @@
 	    <option value='{{ $tag->id}}'> {{$tag->name}} </option>
 	    @endforeach
 	</select>
-	<div class=" col-md-3 well">
+{{--	<div class=" col-md-3 well">
 	    {!! Form::open(['route'=>'tags.store','method'=>'post']) !!}
 	    {{ Form::text('name',null, ['class'=>'form-control col-md-3']) }}
 	    {{ Form::submit('Create New Tag',['class'=>'btn btn-primary btn-block btn-h1-spacing'])}}
 	    
-	    {!! Form::close() !!}
+	    {!! Form::close() !!} 
+	</div> --}}
 	</div>
-	</div>
+	<div class="row">
+	<label for="cats">Categories: </label>
+        <select class="form-control select2-multi col-md-8" name='categories[]' multiple="multiple">
+	    @foreach($categories as $category)
+	    <option value='{{ $category->id}}'> {{$category->name}} </option>
+	    @endforeach
+	</select>
 
 	
 
