@@ -13,12 +13,21 @@
         <label for="body">Body content:</label>
         <textarea class="form-control" name="body" id="body" rows="4"></textarea>
 
+	<div class="row">
 	<label for="tags">Tags: </label>
-        <select class="form-control select2-multi" name='tags[]' multiple="multiple">
+        <select class="form-control select2-multi col-md-8" name='tags[]' multiple="multiple">
 	    @foreach($tags as $tag)
 	    <option value='{{ $tag->id}}'> {{$tag->name}} </option>
 	    @endforeach
 	</select>
+	<div class=" col-md-3 well">
+	    {!! Form::open(['route'=>'tags.store','method'=>'post']) !!}
+	    {{ Form::text('name',null, ['class'=>'form-control col-md-3']) }}
+	    {{ Form::submit('Create New Tag',['class'=>'btn btn-primary btn-block btn-h1-spacing'])}}
+	    
+	    {!! Form::close() !!}
+	</div>
+	</div>
 
 	
 

@@ -3,11 +3,10 @@
 @section('content')
 <div class='container'>
     @if (Session::has('success'))
-	<div class="alert alert-info">{{ Session::get('success') }}</div>
+	<div class="alert alert-success">{{ Session::get('success') }}</div>
     @endif
-    
-    <div class="panel panel-default">	
-	<div class="panel-body">
+<div class='row'>
+<div class='col-md-8 well'>    	
 
     <h1> {{ $post->title }} </h1>
     <p class='lead'>
@@ -19,6 +18,9 @@
     		<span class="label label-default"> {{ $tag->name }}</span>
     	@endforeach
     </div>	
+</div> 
+<div class='col-md-3'> 
+<div class="well"> 
     <p>
 	Submitted by <strong> {{ $post->user->name }} </strong> {{ $post->created_at->diffForHumans() }}
 	<br/>
@@ -35,7 +37,10 @@
 	{!!Form::close()!!}
 	@endif
     @endif
-    <hr/>
+ </div>   
+ </div>   
+    <hr>
+ <div class='col-md-8 well'>   
     <!-- display all of the comments for this post -->
     @if($post->comments->count() >0)
     
@@ -48,6 +53,10 @@
 	      <p>
 	    {!! $comment->body !!}
 	      </p>
+</div>
+<div class='col-md-3'> 
+<div class="well"> 
+
 	      <h6> Answered by {{ $comment->user->name }} on {{ $comment->created_at->diffForHumans() }}</h6>
 	      @if ($comment->created_at != $comment->updated_at)
 	      <h6> Last edited on {{ $comment->updated_at->diffForHumans() }}</h6>
@@ -61,14 +70,14 @@
 		{!!Form::close()!!}
 		@endif
 	    @endif
-    
-	</div>
+ </div>
+ </div>   
 	
     </div>
     @endforeach
     @else
-	<p>
-	    There are no comment to this post yet. Please...
+	<hr><p>
+	    There are no comment to this post yet. Please write your own comment
 	</p>
     @endif
     
@@ -76,8 +85,6 @@
 {{-- <form action="{{ route('comments.store') }}" method="POST"> --}}
 	<form action="{{ route('comments.store') }}" method="POST">
 	{{ csrf_field() }}
-	
-	<h4> Write your own comment </h4>
 	<textarea class="form-control" name="body" rows="2"></textarea>
 	<input type="hidden" value="{{ $post->id }}" name="post_id">
 	<button class="btn btn-primary">Submit comment</button>

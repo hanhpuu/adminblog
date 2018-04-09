@@ -11,6 +11,24 @@
 		@if (!Auth::guest())
 		<p> {{ auth()->user()->name }}</p>
 		<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+		
+		<li class="user-footer">
+				<div class="pull-left">
+				    <a href="#" class="btn btn-default btn-flat">Profile</a>
+				</div>
+				<div class="pull-right">
+				    <a href="{{ route('logout') }}"
+				       onclick="event.preventDefault();
+                                               document.getElementById('logout-form').submit();">
+					Logout
+				    </a>
+
+				    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+					{{ csrf_field() }}
+				    </form>
+				</div>
+			    </li>
+		
 		@else
 		<p> No one</p>
 		@endif
@@ -70,13 +88,13 @@
 
 	    <li class="treeview">
 		<a href="#">
-		    <i class="fa fa-table"></i> <span>Tables</span>
+		    <i class="fa fa-table"></i> <span>Categories</span>
 		    <span class="pull-right-container">
 			<i class="fa fa-angle-left pull-right"></i>
 		    </span>
 		</a>
 		<ul class="treeview-menu">
-		    <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>
+		    <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> Create categories</a></li>
 		    <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
 		</ul>
 	    </li>

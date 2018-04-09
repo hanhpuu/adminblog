@@ -91,7 +91,6 @@ class PostsController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-	
 	$tags = Tag::all();
 	$tags2 = array();
 	foreach ($tags as $tag) {
