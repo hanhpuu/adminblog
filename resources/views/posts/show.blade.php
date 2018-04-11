@@ -1,11 +1,18 @@
 @extends('admin_templatenew')
-
+@section ('title')
+| {{ $post->title }}
+@endsection
 @section('content')
 <div class='container'>
     @if (Session::has('success'))
 	<div class="alert alert-success">{{ Session::get('success') }}</div>
     @endif
 <div class='row'>
+<div class='well box box-solid box-primary'> CATEGORY: 
+	@foreach($post->categories as $category) 
+<strong> {{$category->name}} | </strong>
+@endforeach
+</div>	
 <div class='col-md-8 well'>    	
 
     <h1> {{ $post->title }} </h1>
@@ -25,7 +32,7 @@
 	Submitted by <strong> {{ $post->user->name }} </strong> {{ $post->created_at->diffForHumans() }}
 	<br/>
 	@if ($post->created_at != $post->updated_at)
-	<p>Last edited by on {{ $post->editor->name}} {{ $post->updated_at->diffForHumans() }}</p>
+	<p>Last edited by {{ $post->editor->name}} {{ $post->updated_at->diffForHumans() }}</p>
 	@endif
     </p>
     @if(!Auth::guest())

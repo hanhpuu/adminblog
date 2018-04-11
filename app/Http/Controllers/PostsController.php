@@ -56,7 +56,7 @@ class PostsController extends Controller
 	    'body' => 'required',
 	    'cover_image'=> 'image|nullable|max:1999'
 	]);
-	
+
 	//process the data and submit it
 	$post = new Post();
 	$post->title = $request->title;
@@ -64,7 +64,18 @@ class PostsController extends Controller
 	$post->created_by= auth()->user()->id;
 	//if succesful, we want to redirect	
 	$post->save();
-	$post->tags()->sync($request->tags, FALSE);
+
+	// add tag
+	$tags = $request->input('tags');
+	if(strlen($tags) > 0) {
+
+	    Tag::addTag($post, explode(',', $tags));
+	}
+	//add categories
+	
+	if($request->categories) {
+	    $post->categories()->sync($request->categories);
+	}
 	Session::flash('success','The blog post was successfully saved');
 	return redirect()->route('posts.show', $post->id);
 	
@@ -93,16 +104,21 @@ class PostsController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-	$tags = Tag::all();
+	$tags = $post->tags()->get();
 	$tags2 = array();
 	foreach ($tags as $tag) {
 	    $tags2[$tag->id] = $tag->name;
 	}
+    $cats = $post->categories()->get();
+    $cats2 = array();
+    foreach ($cats as $cat) {
+        $cats2[$cat->id] = $cat->name;
+    }
 	
 	if($post->user->id != Auth::id()) {
 	    return abort(403);
 	}
-	    return view('posts.edit', ['post' => $post, 'tags2'=>$tags2]);
+	    return view('posts.edit', ['post' => $post, 'tags2'=>$tags2, 'cats2' =>$cats2]);
     }
 
     /**
@@ -123,16 +139,13 @@ class PostsController extends Controller
 	$post->title = $request->title;
 	$post->body = $request->body;  
 	$post->updated_by = auth()->user()->id;
-	Session::flash('success','The blog post was successfully updated');
 	$post->save();
-	if(isset($request->tags)) {
-	    $post->tags()->sync($request->tags);
-	} else {
-	    $post->tags->sync(array());
-	}
-	
-	return view('posts.show', ['post' => $post, 'success' => 'Post updated']);
-	
+	$tags = $request->input('tags');
+	Tag::addTag($post, explode(',', $tags));
+	$post->categories()->sync($request->categories);
+    
+	Session::flash('success','The blog post was successfully updated');
+	return redirect()->route('posts.show', $post->id);
     }
 
     /**

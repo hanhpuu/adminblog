@@ -1,5 +1,10 @@
 @extends('admin_templatenew')
 
+@section('css')
+@parent
+<link rel="stylesheet" href=" {{asset('css/bootstrap-tagsinput.css') }}">
+@endsection  
+
 @section('content')
 <div class="container">
     <h1>Write a post</h1>
@@ -14,43 +19,39 @@
         <textarea class="form-control" name="body" id="body" rows="4"></textarea>
 
 	<div class="row">
-	<label for="tags">Tags: </label>
-        <select class="form-control select2-multi col-md-8" name='tags[]' multiple="multiple">
-	    @foreach($tags as $tag)
-	    <option value='{{ $tag->id}}'> {{$tag->name}} </option>
-	    @endforeach
-	</select>
-{{--	<div class=" col-md-3 well">
-	    {!! Form::open(['route'=>'tags.store','method'=>'post']) !!}
-	    {{ Form::text('name',null, ['class'=>'form-control col-md-3']) }}
-	    {{ Form::submit('Create New Tag',['class'=>'btn btn-primary btn-block btn-h1-spacing'])}}
+	    <label for="tags">Tags: </label>
 	    
-	    {!! Form::close() !!} 
-	</div> --}}
+	    <input type="text" value="" data-role="tagsinput" name='tags'/>
+
 	</div>
 	<div class="row">
-	<label for="cats">Categories: </label>
-        <select class="form-control select2-multi col-md-8" name='categories[]' multiple="multiple">
-	    @foreach($categories as $category)
-	    <option value='{{ $category->id}}'> {{$category->name}} </option>
-	    @endforeach
-	</select>
+	    <label for="categories">Categories: </label>
+	    <select class="form-control select2-multi col-md-8" name='categories[]' multiple="multiple">
+		@foreach($categories as $category)
+		<option value='{{ $category->id}}' > {{$category->name}} </option>
+		@endforeach
+	    </select>
+	    <br>
+	    
 
-	
 
-	<input type="submit" class="btn btn-primary" value="Submit post" />
+
+	    <input type="submit" class="btn btn-primary" value="Submit post" />
+	</div>s
     </form>
 
-</div>
+    @endsection
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script type="text/javascript">
-$(document).ready(function () {
-$('.select2-multi').select2();
-});
-</script>
-@endsection    
+    @section('js')
+    @parent
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.select2-multi').select2();
+        });
+        $(".try").tagsinput();
+    </script>
+    <script src="{{ asset('js/bootstrap-tagsinput.js')}}"></script>
+    @endsection
+
 

@@ -1,39 +1,60 @@
 @extends('admin_templatenew')
 
+
+@section('css')
+@parent
+<link rel="stylesheet" href=" {{asset('css/bootstrap-tagsinput.css') }}">
+@endsection  
+
 @section('content')
-    <div class="container">
-      <h1>Edit your post:</h1>
-      <hr />
-      <form action="{{route('posts.update', ['post' => $post->id])}}" method="POST">
+<div class="container">
+    <h1>Edit your post:</h1>
+    <hr />
+    <form action="{{route('posts.update', ['post' => $post->id])}}" method="POST">
+
+
+<!--for tags UX UI-->
+    <label for="categories">Category: </label>
+    <select class="form-control select2-multi" name='categories[]' multiple="multiple">
+       @foreach($cats2 as $id => $name)
+       <option value='{{ $id}}'> {{$name}} </option>
+        @endforeach
+    </select>
+
         <label for="title">Post title:</label>
         <input type="text" name="title" id="title" class="form-control" value="{{ $post->title }}"/>
 
         <label for="body">Post body:</label>
         <textarea class="form-control" name="body" id="body" rows="4" > {{ $post->body }} </textarea>
 	<!--for tags UX UI-->
-	<label for="tags">Tags: </label>
-        <select class="form-control select2-multi" name='tags[]' multiple="multiple">
-		@foreach($tags2 as $id => $name)
-		<option value='{{ $id}}'> {{$name}} </option>
-		@endforeach
-	</select>
+	    <label for="tags">Tags: </label><br>
+
+	    <input type="text" value=" 
+	    @foreach($tags2 as $id => $name)
+	    {{$name}}, 
+	    @endforeach
+	    " data-role="tagsinput" name="tags">
+
 	
-        <input type="submit" class="btn btn-primary" value="Submit post" />
+
+        <br> <input type="submit" class="btn btn-primary center" value="Submit post" />
 	{{ method_field('PUT') }}
 	{{ csrf_field() }}
-      </form>
-    </div>
+    </form>
+</div>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <!-- for tags UX/UI-->
-    <script type="text/javascript">
-    $(document).ready(function() {
-    $('.select2-multi').select2();
-    $('.select2-multi').select2().val({!! json_encode($post->tags()->allRelatedIds()) 
-	!!}).trigger('change');
-    });
-    </script>
 @endsection 
+
+@section('js')
+    @parent
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.select2-multi').select2();
+            $('.select2-multi').select2().val({!! json_encode($post->categories()->allRelatedIds()) 
+                      !!}).trigger('change');
+        });
+        $(".try").tagsinput();
+    </script>
+    <script src="{{ asset('js/bootstrap-tagsinput.js')}}"></script>
+    @endsection
