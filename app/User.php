@@ -6,11 +6,10 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
-class User extends Authenticatable
-{
+class User extends Authenticatable {
+
     use Notifiable;
     use EntrustUserTrait; //**
-
 
     /**
      * The attributes that are mass assignable.
@@ -29,14 +28,22 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    
-     public function comments()
-    {
-	return $this->hasMany('App\Comment');
+
+    public function comments() {
+        return $this->hasMany('App\Comment');
     }
-    
-     public function posts()
-    {
-	return $this->hasMany('App\Post');
+
+    public function posts() {
+        return $this->hasMany('App\Post');
     }
+
+    public function authorizeRoles($roles) {
+        if (is_array($roles)) {
+            return $this->hasAnyRole($roles) ||
+                    abort(401, 'This action is unauthorized.');
+        }
+        return $this->hasRole($roles) ||
+                abort(401, 'This action is unauthorized.');
+    }
+
 }

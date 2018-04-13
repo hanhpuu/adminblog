@@ -22,8 +22,8 @@ class CreatePostsTable extends Migration
 	    $table->string('cover_image');
             $table->timestamps();
 	    
-            $table->foreign('created_by')->references('id')->on('users');
-            $table->foreign('updated_by')->references('id')->on('users');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
