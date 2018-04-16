@@ -7,7 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Role;
-use App\Mail\Verify;
+use App\Mail\NewUserVerify;
+use DB;
 
 class RegisterController extends Controller {
     /*
@@ -65,10 +66,16 @@ use RegistersUsers;
                     'email' => $data['email'],
                     'password' => bcrypt($data['password']),
         ]);
+        //attach role
         $user
-       ->roles()
-       ->attach(Role::where('name', 'user')->first());
-        \Mail::to($user)->send(new Verify);
+                ->roles()
+                ->attach(Role::where('name', 'user')->first());
+        //send verified mail        
+        $token = md5(uniqid(rand(), true));
+        DB::table('user_verifications')->insertGetId(
+                ['token' => $token, 'user_id' => $user->id]
+        );
+        \Mail::to($user)->send(new NewUserVerify($token));
         return $user;
     }
 

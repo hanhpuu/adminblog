@@ -3,10 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/adminblog/app/Http/Controllers/Auth/RegisterController.php</file>
-            <file>file:/C:/xampp/htdocs/adminblog/resources/views/mails/verify.blade.php</file>
-            <file>file:/C:/xampp/htdocs/adminblog/app/Mail/Verify.php</file>
-            <file>file:/C:/xampp/htdocs/adminblog/.env</file>
+            <file>file:/C:/xampp/htdocs/adminblog/resources/views/frontend/index.blade.php</file>
+            <file>file:/C:/xampp/htdocs/adminblog/app/Http/ViewComposers/FrontendComposer.php</file>
+            <file>file:/C:/xampp/htdocs/adminblog/resources/views/layouts/app.blade.php</file>
+            <file>file:/C:/xampp/htdocs/adminblog/routes/web.php</file>
+            <file>file:/C:/xampp/htdocs/adminblog/resources/views/frontend/frontendtemp.blade.php</file>
+            <file>file:/C:/xampp/htdocs/adminblog/app/Post.php</file>
+            <file>file:/C:/xampp/htdocs/adminblog/app/Providers/AppServiceProvider.php</file>
+            <file>file:/C:/xampp/htdocs/adminblog/resources/views/frontend/layouts/header.blade.php</file>
         </group>
     </open-files>
 </project-private>

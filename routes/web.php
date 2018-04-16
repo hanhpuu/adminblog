@@ -11,8 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/',function () {
+    return view('frontend.index');
 });
 
 Auth::routes();
@@ -40,4 +40,4 @@ Route::get('/errors', function() {
 
 Route::match(['get', 'post'], '/search', 'PostsController@search')->name('post.search');
 
-
+Route::get('user/verify/{token}', 'UserController@verifyUser');

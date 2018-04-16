@@ -8,6 +8,7 @@ use App\Role;
 use DB;
 use Hash;
 
+
 class UserController extends Controller
 {
     /**
@@ -120,5 +121,16 @@ class UserController extends Controller
         User::find($id)->delete();
         return redirect()->route('users.index')
             ->with('success','User deleted successfully');
+    }
+    
+    public function verifyUser($token) {
+        if (!$verify = DB::table('user_verifications')->where('token','=',$token)->first()){
+        
+            throw new \Exception('Khong tim thay!!!!!');
+        }
+        $user = User::findOrFail($verify->user_id);
+        $user->is_verified = 1;
+        $user->save();
+        return view('/home');
     }
 }

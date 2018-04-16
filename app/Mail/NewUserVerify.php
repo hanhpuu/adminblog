@@ -7,18 +7,19 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class Verify extends Mailable
+class NewUserVerify extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $token;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($token)
     {
-        //
+        $this->token = $token;
     }
 
     /**
@@ -28,6 +29,8 @@ class Verify extends Mailable
      */
     public function build()
     {
-        return $this->view('mails.verify');
+        return $this->view('emails.user.newuserverify')->with([
+                        'token' => $this->token,
+                    ]);
     }
 }
