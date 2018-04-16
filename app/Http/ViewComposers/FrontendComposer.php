@@ -2,27 +2,27 @@
 
 namespace App\Http\ViewComposers;
 
-use Illuminate\Support\Facades\View;
+use Illuminate\View\View;
 use Illuminate\Support\ServiceProvider;
-use App\Category;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Post;
+use App\Category;
 
 class FrontendComposer extends ServiceProvider {
 
-    protected $categories;
-    protected $posts;
+    protected $categoriesView;
+    protected $postsView;
 
     /**
      * Register bindings in the container.
      *
      * @return void
      */
-    public function boot() {
-        $this->categories = Category::getAll();
-        $this->posts = Post::getAll();
+    public function __construct() {
+        $this->categoriesView = Category::all();
+        $this->postsView = Post::all();
     }
 
     /**
@@ -30,15 +30,12 @@ class FrontendComposer extends ServiceProvider {
      *
      * @return void
      */
-    public function register() {
-        View::composer('*', function ($view) {
-            $route = Route::current()->getName();
-            $role = User::getUserRole(Auth::user());
-            $view->with('posts', $this->posts);
-            $view->with('categories', $this->categories);
-            $view->with('route', $route);
-            $view->with('role', $role);
-        });
+    public function compose(View $view) {
+
+            $routeView = Route::current()->getName();
+            $view->with('postsView', $this->postsView);
+            $view->with('categoriesView', $this->categoriesView);
+            $view->with('routeView', $routeView);  
     }
 
 }

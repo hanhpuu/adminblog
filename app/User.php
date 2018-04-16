@@ -37,7 +37,7 @@ class User extends Authenticatable {
         return $this->hasMany('App\Post');
     }
 
-    public function authorizeRoles($roles) {
+    public static function authorizeRoles($roles) {
         if (is_array($roles)) {
             return $this->hasAnyRole($roles) ||
                     abort(401, 'This action is unauthorized.');

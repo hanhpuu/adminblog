@@ -45,8 +45,8 @@
 		    </span>
 		</a>
 		<ul class="treeview-menu">
-		    <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-		    <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+		    <li class="active"><a href="{{ route('dashboard')}}"><i class="fa fa-circle-o"></i> Dashboard</a></li>
+		    <li><a href="{{ route('home')}}"><i class="fa fa-circle-o"></i> Home </a></li>
 		</ul>
 	    </li>
 	    <li class="treeview">
@@ -57,13 +57,13 @@
 		    </span>
 		</a>
 		<ul class="treeview-menu">
-		    <li><a href="{{asset('/posts')}}"><i class="fa fa-circle-o"></i> Recent posts</a></li>
-		    <li><a href="{{asset('/posts/create')}}"><i class="fa fa-circle-o"></i> Create new posts</a></li>
+		    <li><a href="{{route('posts.index')}}"><i class="fa fa-circle-o"></i> Recent posts</a></li>
+		    <li><a href="{{route('posts.create')}}"><i class="fa fa-circle-o"></i> Create new posts</a></li>
 		    <li><a href="{{asset('/posts')}}"><i class="fa fa-circle-o"></i> My posts</a></li>
 		</ul>
 	    </li>
 	    <li>
-		<a href="{{asset('/admin/roles')}}">
+		<a href="{{route('roles.index')}}">
 		    <i class="fa fa-th"></i> <span>Role management</span>
 		    <span class="pull-right-container">
 			<small class="label pull-right bg-green">new</small>
@@ -99,15 +99,6 @@
 		</ul>
 	    </li>
 	    <li>
-		<a href="pages/calendar.html">
-		    <i class="fa fa-calendar"></i> <span>Calendar</span>
-		    <span class="pull-right-container">
-			<small class="label pull-right bg-red">3</small>
-			<small class="label pull-right bg-blue">17</small>
-		    </span>
-		</a>
-	    </li>
-	    <li>
 		<a href="pages/mailbox/mailbox.html">
 		    <i class="fa fa-envelope"></i> <span>Mailbox</span>
 		    <span class="pull-right-container">
@@ -117,19 +108,8 @@
 		    </span>
 		</a>
 	    </li>
-	    <li class="treeview">
-		<a href="#">
-		    <i class="fa fa-folder"></i> <span>Examples</span>
-		    <span class="pull-right-container">
-			<i class="fa fa-angle-left pull-right"></i>
-		    </span>
-		</a>
-
-	    <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
-	    <li class="header">LABELS</li>
-	    <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-	    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-	    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+	    
+	    
 	</ul>
     </section>
     <!-- /.sidebar -->

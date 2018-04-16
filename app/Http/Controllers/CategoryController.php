@@ -100,4 +100,10 @@ class CategoryController extends Controller
 	
 	return redirect()->route('categories.index');
     }
+    
+    public function showFrontend($id)
+    {
+        $category = Category::find($id);
+	return view('frontend.categories.show')->withCategory($category);
+    }
 }

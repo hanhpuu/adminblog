@@ -91,4 +91,21 @@ class CommentsController extends Controller
     $comment->delete();
     return redirect('/posts')->with('success', 'Comment removed');
     }
+    
+    public function storeFrontend(Request $request)
+    {
+        $this->validate($request, [
+	    'body' => "required|min:15",
+	    'post_id' => "required|integer",
+	]);
+	$comment = new Comment;
+	$comment->body = $request->body;
+	$comment->created_by = auth()->user()->id;
+	
+	$post = Post::findOrFail($request->post_id);
+	$post->comments()->save($comment);
+	
+	return redirect()->route('frontend.posts.show', $post->id);
+    }
+
 }

@@ -169,4 +169,12 @@ class PostsController extends Controller
         $posts = Post::search($searchTerm);
         return view('posts.searchResult', compact('posts', 'searchTerm'));
     }
+    
+    public function showFrontend($id)
+    {
+        //Use the model to find 1 record from the database
+	$post = Post::findOrFail($id);
+	//show the view and pass the record to the view	
+	return view('frontend.posts.show')->with('post', $post);
+    }
 }

@@ -10,15 +10,35 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//for frontend
 Route::get('/',function () {
     return view('frontend.index');
-});
+})->name('home');
+
+Route::get('/categories',function () {
+    return view('frontend.categories.index');})->name('frontend.cat');
+Route::get('categories/{categories}','CategoryController@showFrontend')->name('frontend.cat.show');
+
+Route::get('/posts',function () {
+    return view('frontend.posts.index'); })->name('frontend.posts');
+Route::get('posts/{posts}','PostsController@showFrontend')->name('frontend.posts.show');
+
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//for dashboard
+Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
+Route::group(['prefix' => 'dashboard'], function() {
+    Route::get('/', 'HomeController@index')->name('dashboard');
+    Route::match(['get', 'post'], '/search', 'PostsController@search')->name('post.search');
+    Route::resource('posts','PostsController');
+    Route::resource('comments','CommentsController', ['except'=>['index', 'create', 'show']]);
+    Route::resource('tags','TagController',['except'=>['create']]);
+    Route::resource('categories','CategoryController',['except'=>['create']]);
+});
+
+//only for admin
 Route::group(['prefix' => 'admin', 'middleware' => 'access'], function() {
     Route::resource('roles','RoleController');
     Route::resource('users','UserController');
@@ -28,16 +48,9 @@ Route::get('admin', function () {
     return view('admin_templatenew');
 });
 
-Route::resource('posts','PostsController');
-Route::resource('comments','CommentsController', ['except'=>['index', 'create', 'show']]);
-Route::resource('tags','TagController',['except'=>['create']]);
-Route::resource('categories','CategoryController',['except'=>['create']]);
 
 Route::get('/errors', function() {
-    return view ('errors.403');
-    
-}) ->name('errors') ;
-
-Route::match(['get', 'post'], '/search', 'PostsController@search')->name('post.search');
+    return view ('errors.403');}) ->name('errors') ;
 
 Route::get('user/verify/{token}', 'UserController@verifyUser');
+

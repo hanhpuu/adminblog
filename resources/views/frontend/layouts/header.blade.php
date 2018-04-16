@@ -76,13 +76,13 @@
                     </div><!-- .hamburger-menu -->
 
                     <ul class="flex-lg flex-lg-row justify-content-lg-center align-content-lg-center">
-                        <li class="current-menu-item"><a href="index.html">Home</a></li>
-                        <li><a href="#">features</a></li>
-                        <li><a href="#">Categories</a></li>
+                        <li class="current-menu-item"><a href="{{ route('home') }}">Home</a></li>
+                        <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                        <li><a href="{{ route('frontend.cat') }}">Categories</a></li>
                         <ul class="dropdown-menu" role="menu">
                             <li>1</li>
                         </ul>
-                        <li><a href="#">blog</a></li>
+                        <li><a href="{{ route('frontend.posts') }}">Blog</a></li>
                         <li><a href="#">about me</a></li>
                         <li><a href="#">Contact</a></li>
                     </ul>
@@ -116,19 +116,19 @@
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <div class="hero-content flex justify-content-center align-items-center flex-column">
-                            <img src="images/slider.jpg" alt="">
+                            <img src="{{ asset('images/slider.jpg') }}" alt="">
                         </div><!-- .hero-content -->
                     </div><!-- .swiper-slide -->
 
                     <div class="swiper-slide">
                         <div class="hero-content flex justify-content-center align-items-center flex-column">
-                            <img src="images/slider.jpg" alt="">
+                            <img src="{{ asset('images/slider.jpg') }}" alt="">
                         </div><!-- .hero-content -->
                     </div><!-- .swiper-slide -->
 
                     <div class="swiper-slide">
                         <div class="hero-content flex justify-content-center align-items-center flex-column">
-                            <img src="images/slider.jpg" alt="">
+                            <img src="{{ asset('images/slider.jpg') }}" alt="">
                         </div><!-- .hero-content -->
                     </div><!-- .swiper-slide -->
                 </div><!-- .swiper-wrapper -->
@@ -147,17 +147,5 @@
         </div><!-- .col -->
     </div><!-- .row -->
 
-    <div class="container">
-        <div class="row">
-            <div class="offset-lg-9 col-12 col-lg-3">
-                <a href="#">
-                    <div class="yt-subscribe">
-                        <img src="images/yt-subscribe.png" alt="Youtube Subscribe">
-                        <h3>Subscribe</h3>
-                        <p>To my Youtube Channel</p>
-                    </div><!-- .yt-subscribe -->
-                </a>
-            </div><!-- .col -->
-        </div><!-- .row -->
-    </div><!-- .container -->
+    
 </div><!-- .hero-section -->

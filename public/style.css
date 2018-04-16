@@ -21,6 +21,11 @@
     font-style: normal;
 }
 
+list {
+    color: black;
+    font-family:'BeyondTheMountains'!important;
+}
+
 body {
     color: #2f2f2f;
     font-family: 'HelveticaNeueLTPro-Md';

@@ -8,16 +8,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
 
     <!-- FontAwesome CSS -->
-    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
 
     <!-- Swiper CSS -->
-    <link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="{{ asset('css/swiper.min.css') }}">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ asset('style.css') }}">
 
     @section('css')
         @show
@@ -31,10 +31,10 @@
 </div><!-- .outer-container -->
 
 <!-- .sit-footer -->
-@yield('frontend.layouts.footer')
-<script type='text/javascript' src='js/jquery.js'></script>
-<script type='text/javascript' src='js/swiper.min.js'></script>
-<script type='text/javascript' src='js/custom.js'></script>
+@include('frontend.layouts.footer')
+<script type='text/javascript' src="{{ asset('js/jquery.js') }}"></script>
+<script type='text/javascript' src="{{ asset('js/swiper.min.js') }}"></script>
+<script type='text/javascript' src="{{ asset('js/custom.js') }}"></script>
 @section('js')
         @show
 </body>
