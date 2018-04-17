@@ -9,11 +9,13 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Post;
 use App\Category;
+use App\Tag;
 
 class FrontendComposer extends ServiceProvider {
 
     protected $categoriesView;
     protected $postsView;
+    protected $tagsView;
 
     /**
      * Register bindings in the container.
@@ -23,6 +25,7 @@ class FrontendComposer extends ServiceProvider {
     public function __construct() {
         $this->categoriesView = Category::all();
         $this->postsView = Post::all();
+        $this->tagsView = Tag::all();
     }
 
     /**
@@ -36,6 +39,7 @@ class FrontendComposer extends ServiceProvider {
             $view->with('postsView', $this->postsView);
             $view->with('categoriesView', $this->categoriesView);
             $view->with('routeView', $routeView);  
+            $view->with('tagsView', $this->tagsView);
     }
 
 }

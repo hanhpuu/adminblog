@@ -8,7 +8,7 @@
 
 
                 @foreach($postsView as $post)
-                <header class="entry-header">
+                <header class="list">
                     <div class="posted-date">
                         {{$post->created_at}}
                     </div><!-- .posted-date -->
@@ -29,11 +29,8 @@
                 </div><!-- .entry-content -->
 
                 <footer class="entry-footer flex flex-column flex-lg-row justify-content-between align-content-start align-lg-items-center">
-                    <ul class="post-share flex align-items-center order-3 order-lg-1">
-                        <label>View details</label>
                         <a href="{{ route('frontend.posts.show', $post->id) }}" class='btn btn-sm btn-primary'>View details</a>
-       
-                    </ul><!-- .post-share -->
+                    <!-- .post-share -->
                 </footer><!-- .entry-footer -->
                 @endforeach
             </div><!-- .content-wrap -->

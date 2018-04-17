@@ -7,23 +7,23 @@
     <div class="row">
         <div class="col-12">
             <div class="content-wrap">
-                <h1 class="list" >List of blogs with <strong>{{$category->name}}</strong> category</h1>
+                <h1 class="list" >List of blogs with <strong>#{{$tag->name}}</strong> tag</h1>
                 <table class='table entry-content'>
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>Title</th>
-                            <th>Categories</th>
+                            <th>Tags</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($category->posts as $post)
+                        @foreach ($tag->posts as $post)
                         <tr>
                             <th>{{$post->id}}</th>
                             <td>{{$post->title}}</td>
-                            <td>@foreach ($post->categories as $category)
-                                <span class='label label-default'>{{$category->name}}</span>
+                            <td>@foreach ($post->tags as $tag)
+                                <span class='label label-default'>#{{$tag->name}}</span>
                                 @endforeach
                             </td>
                             <td><a href="{{ route('frontend.posts.show', $post->id)}}" class='btn btn-default btn-xs'>View</a></td>

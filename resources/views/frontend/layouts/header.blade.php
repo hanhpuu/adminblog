@@ -13,13 +13,13 @@
                 </div><!-- .col -->
 
                 <div class="col-lg-3 flex justify-content-between justify-content-lg-end align-items-center">
-                        <ul class="flex align-items-center col-lg-3">
+                        <ul class="flex align-items-center">
                             @if (Auth::guest())
-                            <div class="header-bar-social d-none d-md-block">
-                            <li><a href="{{ route('login') }}">Login</a></li>
+                            <div class="header-bar-text d-none d-md-block">
+                            <a href="{{ route('login') }}">Login</a>
                             </div>
-                            <div class="header-bar-social d-none d-md-block">
-                            <li><a href="{{ route('register') }}">Register</a></li>
+                            <div class="header-bar-text d-none d-md-block">
+                            <a href="{{ route('register') }}">Register</a>
                             </div>
                             @else
                             <div class="header-bar-social d-none d-md-block col-lg-3">
@@ -83,7 +83,7 @@
                             <li>1</li>
                         </ul>
                         <li><a href="{{ route('frontend.posts') }}">Blog</a></li>
-                        <li><a href="#">about me</a></li>
+                        <li><a href="{{ route('frontend.tags') }}">Tags</a></li>
                         <li><a href="#">Contact</a></li>
                     </ul>
 

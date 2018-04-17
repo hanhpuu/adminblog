@@ -19,10 +19,15 @@ Route::get('/categories',function () {
     return view('frontend.categories.index');})->name('frontend.cat');
 Route::get('categories/{categories}','CategoryController@showFrontend')->name('frontend.cat.show');
 
+Route::get('/tags',function () {
+    return view('frontend.tags.index');})->name('frontend.tags');
+Route::get('tags/{tags}','TagController@showFrontend')->name('frontend.tags.show');
+
 Route::get('/posts',function () {
     return view('frontend.posts.index'); })->name('frontend.posts');
 Route::get('posts/{posts}','PostsController@showFrontend')->name('frontend.posts.show');
 
+Route::post('comments','CommentsController@storeFrontend')->name('frontend.comments.store');
 
 Auth::routes();
 

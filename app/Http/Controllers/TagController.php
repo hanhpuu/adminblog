@@ -100,4 +100,10 @@ class TagController extends Controller
 	
 	return redirect()->route('tags.index');
     }
+    
+    public function showFrontend($id)
+    {
+        $tag = Tag::find($id);
+	return view('frontend.tags.show')->withTag($tag);
+    }
 }

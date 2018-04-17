@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('style.css') }}">
+    <link rel="stylesheet" href="{{ asset('meStyle.css') }}">
 
     @section('css')
         @show
