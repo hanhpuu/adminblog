@@ -24,7 +24,7 @@ class FrontendComposer extends ServiceProvider {
      */
     public function __construct() {
         $this->categoriesView = Category::all();
-        $this->postsView = Post::all();
+        $this->postsView = Post::orderBy('id','desc')->paginate(3);
         $this->tagsView = Tag::all();
     }
 

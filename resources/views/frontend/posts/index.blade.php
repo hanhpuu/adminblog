@@ -21,9 +21,9 @@
                 </header><!-- .entry-header -->
 
                 <figure class="featured-image">
-                    <img src="images/blog-image.jpg" alt="">
+                    <img src="/storage/images/{{$post->cover_image}}" alt="">
                 </figure><!-- .featured-image -->
-
+A
                 <div class="blockquote-text " maxlength="50">
                     <p>{!! $post->body !!}</p>
                 </div><!-- .entry-content -->
@@ -33,6 +33,7 @@
                     <!-- .post-share -->
                 </footer><!-- .entry-footer -->
                 @endforeach
+                {{$postsView->links()}}
             </div><!-- .content-wrap -->
         </div><!-- .col -->
     </div><!-- .row -->

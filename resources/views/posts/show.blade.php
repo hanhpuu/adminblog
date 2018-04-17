@@ -16,6 +16,8 @@
 <div class='col-md-8 well'>    	
 
     <h1> {{ $post->title }} </h1>
+    <img style='width: 100%' src='/storage/images/{{$post->cover_image}}'>
+<br><br>
     <p class='lead'>
 	{!! $post->body !!}
     </p>

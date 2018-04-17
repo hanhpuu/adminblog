@@ -56,23 +56,35 @@ class PostsController extends Controller
 	    'body' => 'required',
 	    'cover_image'=> 'image|nullable|max:1999'
 	]);
-
+//	handle file upload
+	if($request->hasFile('cover_image')){
+//      get file name with extension
+	$filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+//	get just file name
+	$filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+//      get just extension
+	    $extension = $request->file('cover_image')->getClientOriginalExtension();
+//	    filename to store
+	    $filenameToStore = $filename.'_'.time().'.'.$extension;
+//	    upload the image
+	    $path = $request->file('cover_image')->storeAs('public/images',$filenameToStore);
+	}else{
+	    $filenameToStore = 'noimage.jpg';
+	}        
 	//process the data and submit it
 	$post = new Post();
 	$post->title = $request->title;
 	$post->body = $request->body; 
 	$post->created_by= auth()->user()->id;
+        $post->cover_image = $filenameToStore;
 	//if succesful, we want to redirect	
 	$post->save();
-
 	// add tag
 	$tags = $request->input('tags');
 	if(strlen($tags) > 0) {
-
 	    Tag::addTag($post, explode(',', $tags));
 	}
 	//add categories
-	
 	if($request->categories) {
 	    $post->categories()->sync($request->categories);
 	}

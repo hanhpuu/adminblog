@@ -19,7 +19,7 @@ class CreatePostsTable extends Migration
             $table->text('body');
 	    $table->integer('created_by')->unsigned();
             $table->integer('updated_by')->unsigned()->nullable();
-	    $table->string('cover_image');
+	    $table->string('cover_image')->nullable();
             $table->timestamps();
 	    
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
