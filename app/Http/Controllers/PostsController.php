@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use App\Post;
 use Auth;
 use App\Tag;
 use App\Category;
-use Illuminate\Support\Facades\Session;
 
 class PostsController extends Controller
 {
@@ -191,6 +192,11 @@ class PostsController extends Controller
     {
         $post = Post::find($id);
 	$post->tags()->detach();
+        $post->categories()->detach();
+        if($post->cover_image != 'noimage.jpg'){
+//	    delete image
+	    Storage::delete('public/images/posts'.$post->cover_image);
+	}
 	$post->delete();
 	Session::flash('success','Post removed');
 	return redirect()->route('posts.index');
