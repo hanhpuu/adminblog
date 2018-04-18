@@ -12,6 +12,14 @@
 
     <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
         <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
+        
+        <label for="categories">Categories: </label>
+        <select class="form-control select2-multi col-md-8" name='categories[]' multiple="multiple">
+            @foreach($categories as $category)
+            <option value='{{ $category->id}}' > {{$category->name}} </option>
+            @endforeach
+        </select>
+        
         <label for="title">Title:</label>
         <input type="text" name="title" id="title" class="form-control" />
 
@@ -24,12 +32,6 @@
         <label for="tags">Tags: </label><br>
         <input type="text" value="" data-role="tagsinput" name='tags'/><br>
 
-        <label for="categories">Categories: </label>
-        <select class="form-control select2-multi col-md-8" name='categories[]' multiple="multiple">
-            @foreach($categories as $category)
-            <option value='{{ $category->id}}' > {{$category->name}} </option>
-            @endforeach
-        </select>
         <br>
 
         <input type="submit" class="btn btn-primary" value="Submit post" />

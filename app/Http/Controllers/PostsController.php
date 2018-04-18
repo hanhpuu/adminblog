@@ -67,12 +67,13 @@ class PostsController extends Controller
 //	    filename to store
 	    $filenameToStore = $filename.'_'.time().'.'.$extension;
 //	    upload the image
-	    $path = $request->file('cover_image')->storeAs('public/images',$filenameToStore);
+	    $path = $request->file('cover_image')->storeAs('public/images/posts',$filenameToStore);
 	}else{
 	    $filenameToStore = 'noimage.jpg';
-	}        
+	}
+            
 	//process the data and submit it
-	$post = new Post();
+	$post = new Post();  
 	$post->title = $request->title;
 	$post->body = $request->body; 
 	$post->created_by= auth()->user()->id;
@@ -145,12 +146,32 @@ class PostsController extends Controller
     //validate the form data
 	$this->validate($request, [
 	    'title' => 'required|max:255',
+            'body' => 'required',
+	    'cover_image'=> 'image|nullable|max:1999'
 	]);
+    	        
+
     //process the data and update the post
 	$post = Post::find($id);
 	$post->title = $request->title;
 	$post->body = $request->body;  
 	$post->updated_by = auth()->user()->id;
+    //  handle file upload
+	if($request->hasFile('cover_image')){
+    //  get file name with extension
+	$filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+    //	get just file name
+	$filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+    //  get just extension
+	$extension = $request->file('cover_image')->getClientOriginalExtension();
+    //	filename 
+    //	to store
+	$filenameToStore = $filename.'_'.time().'.'.$extension;
+    //	upload the image
+	$path = $request->file('cover_image')->storeAs('public/images/posts',$filenameToStore);  
+        $post->cover_image = $filenameToStore;
+	}
+        
 	$post->save();
 	$tags = $request->input('tags');
 	Tag::addTag($post, explode(',', $tags));

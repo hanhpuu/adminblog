@@ -21,7 +21,7 @@
                 </header><!-- .entry-header -->
 
                 <figure class="featured-image">
-                    <img src="/storage/images/{{$post->cover_image}}" alt="">
+                    <img src="/storage/images/posts/{{$post->cover_image}}" alt="">
                 </figure><!-- .featured-image -->
 
                 <div class="entry-content">

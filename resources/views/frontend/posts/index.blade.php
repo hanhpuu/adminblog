@@ -21,11 +21,11 @@
                 </header><!-- .entry-header -->
 
                 <figure class="featured-image">
-                    <img src="/storage/images/{{$post->cover_image}}" alt="">
+                    <img src="/storage/images/posts/{{$post->cover_image}}" alt="">
                 </figure><!-- .featured-image -->
-A
+
                 <div class="blockquote-text " maxlength="50">
-                    <p>{!! $post->body !!}</p>
+                    <p>{!! str_limit($post->body, 50) !!}</p>
                 </div><!-- .entry-content -->
 
                 <footer class="entry-footer flex flex-column flex-lg-row justify-content-between align-content-start align-lg-items-center">

@@ -12,7 +12,7 @@
 */
 //for frontend
 Route::get('/',function () {
-    return view('frontend.index');
+    return view('frontend.home.index');
 })->name('home');
 
 Route::get('/categories',function () {

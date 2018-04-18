@@ -10,7 +10,7 @@
 <div class="container">
     <h1>Edit your post:</h1>
     <hr />
-    <form action="{{route('posts.update', ['post' => $post->id])}}" method="POST">
+    <form action="{{route('posts.update', ['post' => $post->id])}}" method="POST" enctype="multipart/form-data">
 
 
 <!--for tags UX UI-->
@@ -26,6 +26,11 @@
 
         <label for="body">Post body:</label>
         <textarea class="form-control" name="body" id="body" rows="4" > {{ $post->body }} </textarea>
+        
+        <label for="body">Upload photo:</label>
+        <input type="file" name="cover_image" id="cover_image">
+        <img style='width: 100%' src='/storage/images/posts/{{$post->cover_image}}'>
+
 	<!--for tags UX UI-->
 	    <label for="tags">Tags: </label><br>
 
