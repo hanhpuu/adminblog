@@ -38,7 +38,7 @@
 	@endif
     </p>
     @if(!Auth::guest())
-	@if(Auth::user()->id == $post->created_by)
+	@if(Auth::user()->id == $post->created_by || auth::user()->hasRole('admin'))
 	<a href="{{route('posts.edit',$post->id)}}" class="btn btn-default"> Edit </a> 
 	{!!Form::open(['action'=>['PostsController@destroy', $post->id],'method'=>'POST', 'class' => 'pull-right' ]) !!}
 	{{Form::hidden('_method','DELETE')}}
@@ -56,9 +56,7 @@
     @foreach($post->comments as $comment)
     
 	    
-	    @if(isset($successans))
-	    <h6>{{ $successans}}</h6>
-	    @endif
+	   
 	      <p>
 	    {!! $comment->body !!}
 	      </p>
@@ -66,19 +64,18 @@
 <div class='col-md-3'> 
 <div class="well"> 
 
-	      <h6> Answered by {{ $comment->user->name }} on {{ $comment->created_at->diffForHumans() }}</h6>
-	      @if ($comment->created_at != $comment->updated_at)
-	      <h6> Last edited on {{ $comment->updated_at->diffForHumans() }}</h6>
-	      @endif
-	      @if(!Auth::guest())
-		@if(Auth::user()->id == $comment->created_by)
+                <h6> Answered by {{ $comment->user->name }} on {{ $comment->created_at->diffForHumans() }}</h6>
+                @if ($comment->created_at != $comment->updated_at)
+                <h6> Last edited on {{ $comment->updated_at->diffForHumans() }}</h6>
+                @endif
+		@if(Auth::user()->id == $comment->created_by || auth::user()->hasRole('admin'))
 		<a href="/comments/{{$comment->id}}/edit" class="btn btn-default"> Edit </a> 
 		{!!Form::open(['action'=>['CommentsController@destroy', $comment->id],'method'=>'POST', 'class' => 'pull-right' ]) !!}
 		{{Form::hidden('_method','DELETE')}}
 		{{Form::submit('Delete',['class'=>'btn btn-danger'])}}
 		{!!Form::close()!!}
 		@endif
-	    @endif
+	   
  </div>
  </div>   
 	

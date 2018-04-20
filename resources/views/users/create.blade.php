@@ -21,8 +21,10 @@
                             </div>
                         @endif
 
-                        <form class="form-horizontal" role="form" method="POST" action="{{ url('admin/users') }}">
+                        <form class="form-horizontal" role="form" method="POST" action="{{ url('admin/users') }}" enctype="multipart/form-data">
                             {{ csrf_field() }}
+                            
+                            <input type="hidden" name="is_verified" value=1>
 
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                 <label for="name" class="col-md-4 control-label">Name</label>
@@ -64,7 +66,6 @@
                                     @endif
                                 </div>
                             </div>
-
                             <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
                                 <label for="password_confirmation" class="col-md-4 control-label">Confirm Password</label>
 
@@ -96,9 +97,7 @@
                                     @endif
                                 </div>
                             </div>
-
-
-
+                            
                             <div class="form-group">
                                 <div class="col-md-8 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">

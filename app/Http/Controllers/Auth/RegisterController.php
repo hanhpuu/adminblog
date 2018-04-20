@@ -65,6 +65,7 @@ use RegistersUsers;
                     'name' => $data['name'],
                     'email' => $data['email'],
                     'password' => bcrypt($data['password']),
+                    'is_verified' => 0
         ]);
         //attach role
         $user

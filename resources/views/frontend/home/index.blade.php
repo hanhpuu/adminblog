@@ -43,10 +43,10 @@
                             <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                         </ul><!-- .post-share -->
 
-                        <a class="read-more order-2" href="#">Read more</a>
+                        <a class="read-more order-2" href="{{route('frontend.posts.show',$post->id)}}">Read more</a>
 
                         <div class="comments-count order-1 order-lg-3">
-                            <a href="#">2 Comments</a>
+                            <a href="#">{{$post->comments->count()>1 ? $post->comments->count().' comments' : $post->comments->count().' comment' }}</a>
                         </div><!-- .comments-count -->
                     </footer><!-- .entry-footer -->
                   

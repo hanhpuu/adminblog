@@ -7,6 +7,7 @@ use App\User;
 use App\Role;
 use DB;
 use Hash;
+use Auth;
 
 
 class UserController extends Controller
@@ -43,11 +44,25 @@ class UserController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
-            'roles' => 'required'
+            'roles' => 'required',
+            'is_verified' =>'required'
         ]);
-        $input = $request->only('name', 'email', 'password');
-        $input['password'] = Hash::make($input['password']); //Hash password
-        $user = User::create($input); //Create User table entry
+////        cach 1
+//        $input = $request->only('name', 'email', 'password','is_verified','profpho');
+//        $input['password'] = Hash::make($input['password']); //Hash password
+//  
+//        $user = User::create($input);
+//        $user->is_verified = 1;
+//        $user->save();
+//          cach 2
+        $user = new User();  
+	$user->name = $request->name;
+	$user->email = $request->email; 
+        $user->password = Hash::make($request->password);
+	$user->is_verified = 1;
+	$user->save();
+	 
+        
         //Attach the selected Roles
         foreach ($request->input('roles') as $key => $value) {
             $user->attachRole($value);
@@ -132,5 +147,29 @@ class UserController extends Controller
         $user->is_verified = 1;
         $user->save();
         return view('/home');
+    }
+    
+    public function profile() {
+        return view('users.profile', array('user' => Auth::user()) );
+    }
+    
+    public function update_avatar(Request $request){
+
+    	// Handle the user upload of avatar
+	if($request->hasFile('profpho')){
+	$filenameWithExt = $request->file('profpho')->getClientOriginalName();
+	$filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+	    $extension = $request->file('profpho')->getClientOriginalExtension();
+	    $filenameToStore = $filename.'_'.time().'.'.$extension;
+	    $path = $request->file('profpho')->storeAs('public/images/users',$filenameToStore);
+	}else{
+	    $filenameToStore = 'noimage.jpg';
+	}
+
+    		$user = Auth::user();
+    		$user->profpho = $filenameToStore;
+    		$user->save();
+
+    	return view('users.profile', array('user' => Auth::user()) );
     }
 }

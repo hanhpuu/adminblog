@@ -20,6 +20,7 @@ class AdminMiddleware {
 	    // Redirect...
 	    return redirect()->route ('errors');
 	}
+        return $next($request);
     }
 
 }

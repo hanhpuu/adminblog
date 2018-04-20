@@ -44,7 +44,7 @@
                     </ul><!-- .post-share -->
 
                     <div class="comments-count order-1 order-lg-3">
-                        <a href="#">{{$post->comments->count()}} comment</a>
+                        <a href="#">{{$post->comments->count()>1 ? $post->comments->count().' comments' : $post->comments->count().' comment' }}</a>
                     </div><!-- .comments-count -->
                 </footer><!-- .entry-footer -->
             </div><!-- .content-wrap -->

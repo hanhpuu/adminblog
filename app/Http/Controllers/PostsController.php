@@ -15,7 +15,7 @@ class PostsController extends Controller
     
      public function __construct()
     {
-        $this->middleware('auth', ['except' => 'index', 'show']);
+        $this->middleware('auth', ['except' => 'index', 'show','showFrontend']);
     }
 
     /**
@@ -129,10 +129,10 @@ class PostsController extends Controller
         $cats2[$cat->id] = $cat->name;
     }
 	
-	if($post->user->id != Auth::id()) {
-	    return abort(403);
-	}
+	if($post->user->id == Auth::id() || auth::user()->hasRole('admin') ) {
 	    return view('posts.edit', ['post' => $post, 'tags2'=>$tags2, 'cats2' =>$cats2]);
+	}
+            return abort(403);
     }
 
     /**

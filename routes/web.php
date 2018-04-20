@@ -41,6 +41,8 @@ Route::group(['prefix' => 'dashboard'], function() {
     Route::resource('comments','CommentsController', ['except'=>['index', 'create', 'show']]);
     Route::resource('tags','TagController',['except'=>['create']]);
     Route::resource('categories','CategoryController',['except'=>['create']]);
+    Route::get('/profile','UserController@profile')->name('profile');
+    Route::post('/profile', 'UserController@update_avatar');
 });
 
 //only for admin

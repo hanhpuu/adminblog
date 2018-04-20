@@ -32,6 +32,7 @@ class CommentsController extends Controller
 	
 	$post = Post::findOrFail($request->post_id);
 	$post->comments()->save($comment);
+        Session::flash('success','The comment was successfully created');
 	
 	return redirect()->route('posts.show', $post->id);
     }
@@ -47,10 +48,10 @@ class CommentsController extends Controller
     {
         $comment = Comment::findOrFail($id);
 	$post = Post::findOrFail($comment->post_id);
-	if($comment->user->id != Auth::id()) {
-	    return abort(403);
+	if($comment->user->id == Auth::id()||auth::user()->hasRole('admin') ) {
+             return view('comments.edit', ['comment' => $comment, 'post' =>$post]);
 	}
-	    return view('comments.edit', ['comment' => $comment, 'post' =>$post]);
+	     return abort(403);
     }
     
     /**
@@ -74,8 +75,8 @@ class CommentsController extends Controller
 	$comment->updated_by = auth()->user()->id;
 	$post = Post::findOrFail($request->post_id);
 	$post->comments()->save($comment);
-	
-	return redirect()->route('posts.show', ['post' => $post->id, 'successans' => 'Comment updated']);
+	Session::flash('success','The comment was successfully updated');
+	return redirect()->route('posts.show', ['post' => $post->id]);
    
     }
 
