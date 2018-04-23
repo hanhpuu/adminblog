@@ -17,7 +17,7 @@ class RoleController extends Controller
     public function index(Request $request)
     {
         $roles = Role::orderBy('id','DESC')->paginate(5);
-        return view('roles.index',compact('roles'))
+        return view('dashboard.roles.index',compact('roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
     /**
@@ -28,7 +28,7 @@ class RoleController extends Controller
     public function create()
     {
         $permissions = Permission::pluck('display_name','id');
-        return view('roles.create',compact('permissions')); //return the view with the list of permissions passed as an array
+        return view('dashboard.roles.create',compact('permissions')); //return the view with the list of permissions passed as an array
     }
     /**
      * Store a newly created resource in storage.
@@ -71,7 +71,7 @@ class RoleController extends Controller
             ->where("permission_role.role_id",$id)
             ->get();
         //return the view with the role info and its permissions
-        return view('roles.show',compact('role','permissions'));
+        return view('dashboard.roles.show',compact('role','permissions'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -93,7 +93,7 @@ class RoleController extends Controller
                 ->where("role_id",$id)
                 ->pluck('permission_id')
                 ->toArray();
-        return view('roles.edit',compact('role','permissions','rolePermissions'));
+        return view('dashboard.roles.edit',compact('role','permissions','rolePermissions'));
     }
     /**
      * Update the specified resource in storage.

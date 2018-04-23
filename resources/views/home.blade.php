@@ -1,4 +1,4 @@
-@extends('admin_templatenew')
+@extends('dashboard.template')
 
 @section('content')
 <div class="container">

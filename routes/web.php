@@ -30,9 +30,8 @@ Route::get('posts/{posts}','PostsController@showFrontend')->name('frontend.posts
 Route::post('comments','CommentsController@storeFrontend')->name('frontend.comments.store');
 
 Auth::routes();
+Route::get('user/verify/{token}', 'UserController@verifyUser');
 
-//for dashboard
-Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
 Route::group(['prefix' => 'dashboard'], function() {
     Route::get('/', 'HomeController@index')->name('dashboard');
@@ -43,6 +42,8 @@ Route::group(['prefix' => 'dashboard'], function() {
     Route::resource('categories','CategoryController',['except'=>['create']]);
     Route::get('/profile','UserController@profile')->name('profile');
     Route::post('/profile', 'UserController@update_avatar');
+    Route::get('/errors', function() {
+    return view ('dashboard.errors.403');}) ->name('errors') ;
 });
 
 //only for admin
@@ -51,13 +52,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'access'], function() {
     Route::resource('users','UserController');
 });
 
-Route::get('admin', function () {
-    return view('admin_templatenew');
-});
 
 
-Route::get('/errors', function() {
-    return view ('errors.403');}) ->name('errors') ;
-
-Route::get('user/verify/{token}', 'UserController@verifyUser');
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use App\Comment;
 use App\Post;
 use Auth;
@@ -22,17 +23,21 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {
+      
         $this->validate($request, [
 	    'body' => "required|min:15",
 	    'post_id' => "required|integer",
 	]);
+        
 	$comment = new Comment;
 	$comment->body = $request->body;
 	$comment->created_by = auth()->user()->id;
-	
+        
 	$post = Post::findOrFail($request->post_id);
+     
+	
 	$post->comments()->save($comment);
-        Session::flash('success','The comment was successfully created');
+        Session::flash('success','Your comment was successfully created');
 	
 	return redirect()->route('posts.show', $post->id);
     }
@@ -49,7 +54,7 @@ class CommentsController extends Controller
         $comment = Comment::findOrFail($id);
 	$post = Post::findOrFail($comment->post_id);
 	if($comment->user->id == Auth::id()||auth::user()->hasRole('admin') ) {
-             return view('comments.edit', ['comment' => $comment, 'post' =>$post]);
+             return view('dashboard.comments.edit', ['comment' => $comment, 'post' =>$post]);
 	}
 	     return abort(403);
     }
@@ -90,7 +95,7 @@ class CommentsController extends Controller
     {
         $comment = Comment::find($id);
     $comment->delete();
-    return redirect('/posts')->with('success', 'Comment removed');
+    return redirect('posts.index')->with('success', 'Comment removed');
     }
     
     public function storeFrontend(Request $request)

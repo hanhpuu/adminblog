@@ -20,7 +20,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $users = User::orderBy('id','DESC')->paginate(5);
-        return view('users.index',compact('users'))
+        return view('dashboard.users.index',compact('users'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
     /**
@@ -31,7 +31,7 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::pluck('display_name','id');
-        return view('users.create',compact('roles')); //return the view with the list of roles passed as an array
+        return view('dashboard.users.create',compact('roles')); //return the view with the list of roles passed as an array
     }
     /**
      * Store a newly created resource in storage.
@@ -67,7 +67,7 @@ class UserController extends Controller
         foreach ($request->input('roles') as $key => $value) {
             $user->attachRole($value);
         }
-        return redirect()->route('users.index')
+        return redirect()->route('dashboard.users.index')
             ->with('success','User created successfully');
     }
     /**
@@ -79,7 +79,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        return view('users.show',compact('user'));
+        return view('dashboard.users.show',compact('user'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -92,7 +92,7 @@ class UserController extends Controller
         $user = User::find($id);
         $roles = Role::get(); //get all roles
         $userRoles = $user->roles->pluck('id')->toArray();
-        return view('users.edit',compact('user','roles','userRoles'));
+        return view('dashboard.users.edit',compact('user','roles','userRoles'));
     }
     /**
      * Update the specified resource in storage.
@@ -122,7 +122,7 @@ class UserController extends Controller
         foreach ($request->input('roles') as $key => $value) {
             $user->attachRole($value);
         }
-        return redirect()->route('users.index')
+        return redirect()->route('dashboard.users.index')
             ->with('success','User updated successfully');
     }
     /**
@@ -134,7 +134,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         User::find($id)->delete();
-        return redirect()->route('users.index')
+        return redirect()->route('dashboard.users.index')
             ->with('success','User deleted successfully');
     }
     
@@ -150,15 +150,15 @@ class UserController extends Controller
     }
     
     public function profile() {
-        return view('users.profile', array('user' => Auth::user()) );
+        return view('dashboard.users.profile', array('user' => Auth::user()) );
     }
     
     public function update_avatar(Request $request){
 
     	// Handle the user upload of avatar
 	if($request->hasFile('profpho')){
-	$filenameWithExt = $request->file('profpho')->getClientOriginalName();
-	$filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $filenameWithExt = $request->file('profpho')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
 	    $extension = $request->file('profpho')->getClientOriginalExtension();
 	    $filenameToStore = $filename.'_'.time().'.'.$extension;
 	    $path = $request->file('profpho')->storeAs('public/images/users',$filenameToStore);
@@ -170,6 +170,6 @@ class UserController extends Controller
     		$user->profpho = $filenameToStore;
     		$user->save();
 
-    	return view('users.profile', array('user' => Auth::user()) );
+    	return view('dashboard.users.profile', array('user' => Auth::user()) );
     }
 }

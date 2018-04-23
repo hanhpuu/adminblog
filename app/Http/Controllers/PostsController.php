@@ -28,7 +28,7 @@ class PostsController extends Controller
         //go to the model and get a group of records
 	$posts = Post::orderBy('id','desc')->paginate(5);
 	//return the view, and pass in the group of records to loop through
-	return view('posts.index')->with('posts', $posts);
+	return view('dashboard.posts.index')->with('posts', $posts);
     }
 
     /**
@@ -40,7 +40,7 @@ class PostsController extends Controller
     {
         $tags = Tag::all();
 	$categories = Category::all();
-	return view('posts.create')->withTags($tags)->withCategories($categories);
+	return view('dashboard.posts.create')->withTags($tags)->withCategories($categories);
     }
 
     /**
@@ -59,11 +59,11 @@ class PostsController extends Controller
 	]);
 //	handle file upload
 	if($request->hasFile('cover_image')){
-//      get file name with extension
-	$filenameWithExt = $request->file('cover_image')->getClientOriginalName();
-//	get just file name
-	$filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-//      get just extension
+//          get file name with extension
+            $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+//          get just file name
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+//          get just extension
 	    $extension = $request->file('cover_image')->getClientOriginalExtension();
 //	    filename to store
 	    $filenameToStore = $filename.'_'.time().'.'.$extension;
@@ -106,7 +106,7 @@ class PostsController extends Controller
         //Use the model to find 1 record from the database
 	$post = Post::findOrFail($id);
 	//show the view and pass the record to the view	
-	return view('posts.show')->with('post', $post);
+	return view('dashboard.posts.show')->with('post', $post);
     }
 
     /**
@@ -130,7 +130,7 @@ class PostsController extends Controller
     }
 	
 	if($post->user->id == Auth::id() || auth::user()->hasRole('admin') ) {
-	    return view('posts.edit', ['post' => $post, 'tags2'=>$tags2, 'cats2' =>$cats2]);
+	    return view('dashboard.posts.edit', ['post' => $post, 'tags2'=>$tags2, 'cats2' =>$cats2]);
 	}
             return abort(403);
     }
@@ -206,7 +206,7 @@ class PostsController extends Controller
     {
         $searchTerm = $request->input('s');
         $posts = Post::search($searchTerm);
-        return view('posts.searchResult', compact('posts', 'searchTerm'));
+        return view('dashboard.posts.searchResult', compact('posts', 'searchTerm'));
     }
     
     public function showFrontend($id)
@@ -214,6 +214,6 @@ class PostsController extends Controller
         //Use the model to find 1 record from the database
 	$post = Post::findOrFail($id);
 	//show the view and pass the record to the view	
-	return view('frontend.posts.show')->with('post', $post);
+	return view('dashboard.frontend.posts.show')->with('post', $post);
     }
 }

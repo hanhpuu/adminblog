@@ -21,7 +21,7 @@ class CategoryController extends Controller
     public function index()
     {
 	$categories = Category::all();
-	return view('categories.index')->withCategories($categories);
+	return view('dashboard.categories.index')->withCategories($categories);
     }
 
     /**
@@ -51,7 +51,7 @@ class CategoryController extends Controller
     public function show($id)
     {
         $category = Category::find($id);
-	return view('categories.show')->withCategory($category);
+	return view('dashboard.categories.show')->withCategory($category);
     }
 
     /**
@@ -63,7 +63,7 @@ class CategoryController extends Controller
     public function edit($id)
     {
 	$category = Category::find($id);
-	return view('categories.edit')->withCategory($category);
+	return view('dashboard.categories.edit')->withCategory($category);
     }
 
     /**
