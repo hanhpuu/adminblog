@@ -44,6 +44,10 @@ Route::group(['prefix' => 'dashboard'], function() {
     Route::post('/profile', 'UserController@update_avatar');
     Route::get('/errors', function() {
     return view ('dashboard.errors.403');}) ->name('errors') ;
+    Route::resource('settings','SettingController', ['except'=>['destroy']]);
+    Route::get('/{editPhoto}/editPhoto', 'SettingController@editPhoto')->name('editPhoto');
+    Route::put('/{editPhoto}', 'SettingController@updatePhoto')->name('updatePhoto');
+    
 });
 
 //only for admin

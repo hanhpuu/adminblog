@@ -123,11 +123,12 @@ class PostsController extends Controller
 	foreach ($tags as $tag) {
 	    $tags2[$tag->id] = $tag->name;
 	}
-    $cats = $post->categories()->get();
-    $cats2 = array();
-    foreach ($cats as $cat) {
-        $cats2[$cat->id] = $cat->name;
-    }
+        
+        $cats = $post->categories()->get();
+        $cats2 = array();
+        foreach ($cats as $cat) {
+            $cats2[$cat->id] = $cat->name;
+        }
 	
 	if($post->user->id == Auth::id() || auth::user()->hasRole('admin') ) {
 	    return view('dashboard.posts.edit', ['post' => $post, 'tags2'=>$tags2, 'cats2' =>$cats2]);

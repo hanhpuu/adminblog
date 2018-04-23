@@ -2,7 +2,7 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
         <!-- Sidebar user panel -->
-        
+
         <!-- search form -->
         <form action="{{route('post.search')}}" method="get" class="sidebar-form">
             <div class="input-group">
@@ -13,7 +13,7 @@
                 </span>
             </div>
         </form>
-       
+
         <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
@@ -42,6 +42,16 @@
                     <li><a href="{{route('posts.index')}}"><i class="fa fa-circle-o"></i> Recent posts</a></li>
                     <li><a href="{{route('posts.create')}}"><i class="fa fa-circle-o"></i> Create new posts</a></li>
                     <li><a href="{{asset('/posts')}}"><i class="fa fa-circle-o"></i> My posts</a></li>
+                </ul>
+            </li>
+            <li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-files-o"></i>
+                    <span>Settings</span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{route('settings.index')}}"><i class="fa fa-circle-o"></i> Current settings</a></li>
                 </ul>
             </li>
             <li>
@@ -76,7 +86,7 @@
                     </span>
                 </a>
             </li>
-            
+
         </ul>
     </section>
     <!-- /.sidebar -->
